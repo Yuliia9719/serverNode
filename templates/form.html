@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta content='width=device-width, initial-scale=1.0' name='viewport'>
+  <title>HTTP server</title>
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif
+    }
+
+    .container {
+      width: min(100% - 40px, 992px);
+      margin-inline: auto;
+    }
+
+    .mb-3 {
+      margin-bottom: 15px;
+    }
+
+    form {
+      margin: auto;
+    }
+
+    label {
+      display: block;
+    }
+
+    button,
+    input {
+      display: block;
+      padding: 7px 10px;
+      width: 100%;
+      max-width: 300px;
+    }
+
+    input[type="checkbox"] {
+      display: inline-block;
+      width: auto;
+    }
+
+    input[type="checkbox"]+label {
+      display: inline-block;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class='container'>
+
+    <form action='/contact' method='post'>
+      <div class='mb-3'>
+        <label for='id'>Id</label>
+        <input id='id' name='userId' placeholder='User id...' type='number'>
+      </div>
+      <div class='mb-3'>
+        <label for='username'>User name</label>
+        <input id='username' name='username' placeholder='username...' type='text'>
+      </div>
+      <div class='mb-3'>
+        <input checked id='completed' name='completed' placeholder='Completed...' type='checkbox'>
+        <label for='completed'>Completed</label>
+      </div>
+      <button type='submit'>Submit</button>
+    </form>
+
+  </div>
+
+</body>
+
+</html>

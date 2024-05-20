@@ -1,25 +1,46 @@
-import http from 'http'
-import { generateHtml, generateAbout, generateContact, generateNotFound, postData } from './api.mjs'
-const PORT = 3000
+import { createServer } from "node:http";
+import {
+  generateForm,
+  generateHtml,
+  generateJson,
+  generateContacts,
+  generateNotFound,
+  generateAbout,
+  postData
+} from "./api.mjs";
 
-const server = http.createServer((req, res) => {
-  if (req.method === 'GET' && req.url === '/') {
-    return generateHtml(req, res)
-  }
-  if (req.method === 'GET' && req.url === '/about') {
-    return generateAbout(req, res)
-  }
-  // GET contact
-  if (req.method === 'GET' && req.url === '/contact') {
-    return generateContact(req, res)
-  }
-  // POST contact
-  if (req.method === 'POST' && req.url === '/contact') {
-    return postData(req, res)
-  }
-  if (req.method === 'GET' && req.url !== '/contact' && req.url !== '/about' && req.url !== '/') {
-    return generateNotFound(req, res)
-  }
-})
+const PORT = 3000;
 
-server.listen(PORT, () => console.log(`Server is running at http://localhost:${PORT}`))
+const server = createServer((req, res) => {
+  if (req.method === "GET" && req.url === "/") {
+    return generateHtml(req, res);
+  }
+
+  if (req.method === "GET" && req.url === "/about") {
+    return generateAbout(req, res);
+  }
+
+  if (req.method === "GET" && req.url === "/json") {
+    return generateJson(req, res);
+  }
+
+  // GET contacts
+  if (req.method === "GET" && req.url === "/contacts") {
+    return generateContacts(req, res);
+  }
+
+  // POST contacts
+  if (req.method === "POST" && req.url === "/contacts") {
+    return postData(req, res);
+  }
+
+  if (req.method === "GET" && req.url === "/form") {
+    return generateForm(req, res);
+  }
+
+  generateNotFound(req, res);
+});
+
+server.listen(PORT, () => {
+  console.log(`Server running at http://localhost:${PORT}`);
+});
