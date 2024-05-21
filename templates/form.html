@@ -54,14 +54,14 @@
 
   <div class='container'>
 
-    <form action='/contact' method='post'>
+    <form action='/contacts' method='post'>
       <div class='mb-3'>
         <label for='id'>Id</label>
-        <input id='id' name='userId' placeholder='User id...' type='number'>
+        <input id='id' name='id' placeholder='User id...' type='number' required>
       </div>
       <div class='mb-3'>
-        <label for='username'>User name</label>
-        <input id='username' name='username' placeholder='username...' type='text'>
+        <label for='name'>User name</label>
+        <input id='name' name='name' placeholder='Name...' type="text" required>
       </div>
       <div class='mb-3'>
         <input checked id='completed' name='completed' placeholder='Completed...' type='checkbox'>
