@@ -1,29 +1,37 @@
 import fs from "node:fs/promises";
 
+const navigation = `
+<nav style="margin= 20px", align="center">
+
+  <a style="text-decoration: none" href="/">Main</a> |
+  <a style="text-decoration: none" href="/about">About</a> |
+  <a style="text-decoration: none" href="/json">JSON</a> |
+  <a style="text-decoration: none" href="/contacts">Contacts</a> |
+  <a style="text-decoration: none" href="/form">Form</a>
+  
+</nav>
+`;
+
 const createHtmlTemplate = (htmlInjection) => `
       <!DOCTYPE html>
       <html lang="en">
-      
       <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>HTTP server</title>
       </head>
-      
       <body style="font-family: Arial, Helvetica, sans-serif;">
         <div style="width: min(100% - 40px, 992px); margin-inline: auto;">
+          ${navigation}
           ${htmlInjection}
         </div>
       </body>
-      
       </html>
     `;
 
 const rootHtmlTemplate = createHtmlTemplate("<h1>Hello from HTTP server</h1>");
 
 const notFoundHtmlTemplate = createHtmlTemplate("<h1>404 Page Not Found</h1>");
-
-const aboutHtmlTemplate = createHtmlTemplate("<h1>About page</h1>");
 
 const generateContactsTemplate = () => {
   const headerHtml = `<h1>Contacts List</h1>`;
@@ -32,7 +40,7 @@ const generateContactsTemplate = () => {
       (contact) => `
         <div style="border-bottom: 1px solid #ccc; padding: 10px;">
           <p>Id: ${contact.id}</p>
-          <p>User name: ${contact.userName}</p>
+          <p>User Name: ${contact.userName}</p>
           <p>Completed: ${contact.completed ? "Yes" : "No"}</p>
         </div>
       `
@@ -58,32 +66,37 @@ loadFormTemplate();
 
 const contacts = [
   {
+    userName: "Alice",
     id: 1,
-    userName: "John"
+    completed: false
   },
   {
+    userName: "Bob",
     id: 2,
-    userName: "Jane"
+    completed: false
   },
   {
+    userName: "Carol",
     id: 3,
-    userName: "Bob"
+    completed: false
   },
   {
+    userName: "David",
     id: 4,
-    userName: "Alice"
+    completed: true
   },
   {
+    userName: "Eve",
     id: 5,
-    userName: "Charlie"
+    completed: false
   }
 ];
 
 export {
   rootHtmlTemplate,
   notFoundHtmlTemplate,
-  aboutHtmlTemplate,
   contacts,
   formTemplate,
-  generateContactsTemplate
+  generateContactsTemplate,
+  createHtmlTemplate
 };

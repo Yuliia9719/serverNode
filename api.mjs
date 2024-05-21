@@ -2,9 +2,9 @@ import {
   formTemplate,
   generateContactsTemplate,
   notFoundHtmlTemplate,
-  aboutHtmlTemplate,
   rootHtmlTemplate,
-  contacts
+  contacts,
+  createHtmlTemplate
 } from "./data.mjs";
 import * as querystring from "node:querystring";
 
@@ -16,8 +16,8 @@ const generateHtml = (req, res) => {
 
 const generateAbout = (req, res) => {
   res.statusCode = 200;
-  res.setHeader("Content-Type", "text/html");
-  res.end(aboutHtmlTemplate);
+  res.setHeader("Content-Type", "text/plain");
+  res.end("Plain text from HTTP server");
 };
 
 const generateContacts = (req, res) => {
@@ -28,6 +28,7 @@ const generateContacts = (req, res) => {
 
 const generateJson = (req, res) => {
   res.statusCode = 200;
+
   res.setHeader("Content-Type", "application/json");
   res.end(JSON.stringify(contacts));
 };
@@ -40,7 +41,7 @@ const generateForm = (req, res) => {
   } else {
     res.statusCode = 200;
     res.setHeader("Content-Type", "text/html");
-    res.end(formTemplate);
+    res.end(createHtmlTemplate(formTemplate));
   }
 };
 
@@ -50,7 +51,7 @@ const postData = (req, res) => {
   if (req.headers["content-type"] === "application/x-www-form-urlencoded") {
     let body = "";
 
-    req.on("data", (chunk) => (body += chunk.toString()));
+    req.on("data", (chunk) => (body += chunk));
 
     req.on("end", () => {
       try {
@@ -79,7 +80,7 @@ const postData = (req, res) => {
 
     req.on("end", () => {
       try {
-        todos.push(JSON.parse(dataJson));
+        contacts.push(JSON.parse(dataJson));
         res.statusCode = 200;
         res.end("Contact data was received");
       } catch (error) {
